@@ -1,0 +1,52 @@
+.createContainer{
+     margin: 50px;
+     display: flex;
+     justify-content: space-between;
+     flex-wrap: wrap;
+}
+
+.formContainer {
+     border: 1px solid red;
+     width: 55%;
+}
+
+.myPokemons{
+     border: 1px solid blue;
+     width: 35%;
+     text-align: left;
+}
+
+.createForm{
+     /* width: 50%; */
+     display: flex;
+     flex-direction: column;
+}
+
+label{
+     font-weight: bold;
+     margin-bottom: 10px;
+}
+
+input{
+     width: 80%;
+     border-radius: 25px;
+     padding: 10px 15px;
+     margin-bottom: 10px;
+}
+
+input[type="range"]{
+     background-color: red;
+}
+
+.range{
+     display: flex;
+     align-items: center;
+     justify-content: space-evenly;
+}
+
+.button{
+margin-top: 20px;
+display: block;
+width: 40%;
+cursor: pointer;
+}

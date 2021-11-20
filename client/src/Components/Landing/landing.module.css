@@ -1,0 +1,75 @@
+.container {
+     background: 50% url('../../img/zoom.jpg') no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     box-shadow: inset 10px 10px 500px #000;
+}
+
+.external{
+     margin: 50px;
+     box-shadow: 10px 5px 50px #000;
+     width: 300px;
+     height: 300px;
+     border-radius: 50%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.pokeball{
+     margin: 50px;
+     background-color: #fff;
+     width: 300px;
+     height: 300px;
+     border-radius: 50%;
+     box-shadow: inset 10px 5px 50px #000;
+}
+
+.halfRed{
+     background-color: red;
+     box-shadow: inset 10px 5px 50px #000;
+     width: 300px;
+     height: 145px;
+     border-radius: 300px 300px 0 0;
+     border-bottom: 10px solid #000;
+}
+
+.blackCircle{
+     box-shadow: inset 1px 1px 10px #000;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: absolute;
+     background-color: #fff;
+     border: 10px solid #000;
+     border-radius: 50%;
+     width: 90px;
+     height: 90px;
+     transform: translateX(0%) translateY(0%);
+}
+
+.button{
+     background: #fff;
+     outline-style: none;
+     border-radius: 50%;
+     border: 2px solid #000;
+     width: 70px;
+     height: 70px;
+     color: #ff0000;
+     font-size: 1em;
+     text-transform: uppercase;
+     font-weight: bold;
+     cursor: pointer;
+     transition: ease all 1s;
+}
+
+.button:hover {
+     box-shadow: inset 1px 1px 20px #000;
+     background-color: #ff0000;
+     color: rgb(214, 174, 174);
+     transition: ease all 1s;
+}
