@@ -66,7 +66,12 @@ router.get("/pokemons", async (req, res) => {
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
 
-    response = await axios.get("https://pokeapi.co/api/v2/pokemon");
+    // cuenta registros en la BD.
+    let countDB = await Pokemon.count();
+    // Trae solo 50 registros entre la API y la BD.
+    let limitAPI = `?offset=0&limit=${50 - countDB}`
+
+    response = await axios.get(`https://pokeapi.co/api/v2/pokemon${limitAPI}`);
 
     const { results } = response.data;
 
@@ -115,7 +120,7 @@ router.get("/pokemons/:idPokemon", async (req, res) => {
       }
 
       // Busca en la API si no existe en la BD.
-      let response = await axios.get(
+      const response = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${idPokemon.trim()}`
       );
 

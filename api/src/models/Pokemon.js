@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
     },
     imagen: {
       type: DataTypes.STRING,
-      defaultValue: "https://e7.pngegg.com/pngimages/440/208/png-clipart-yoshi-super-mario-world-2-yoshis-island-mario-yoshi-new-super-mario-bros-u-yoshis-story-yoshi-nintendo-vertebrate-thumbnail.png"
+      defaultValue: "https://e1.pngegg.com/pngimages/649/608/png-clipart-3d-yoshi-yoshi-3d-illustration.png"
     },
   });
 };

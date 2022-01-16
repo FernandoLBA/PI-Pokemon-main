@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./CreatePokemon.module.css";
+import axios from "axios";
+import { setPokemon } from "../../Redux/actions/pokemonAction";
+import { getMyPokemons, getPokemons } from "../../Redux/actions/pokemonsAction";
 
 const CreatePokemon = () => {
   const myPokemons = useSelector((state) => state.pokemonsReducer.myPokemons);
-  //   let dispatch = useDispatch();
+  const types = useSelector((state) => state.typesReducer.types);
+  const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState({
     nombre: "",
@@ -19,29 +23,64 @@ const CreatePokemon = () => {
   });
 
   const handleInputs = (e) => {
-    // let types = [];
     setInputs({
       ...inputs,
       [e.target.name]:
         e.target.name === "tipos"
-          ? [...inputs.tipos, e.target.value]
+          ? !inputs.tipos.includes(e.target.value)
+            ? [...inputs.tipos, e.target.value]
+            : [...inputs.tipos]
           : e.target.value,
     });
   };
 
-  const validate = (e) => {
-    let formArr = document.getElementsByTagName("form");
-    console.log([...formArr]);
+  const handleTags = (e) => {
+    let index = e.target.value;
+    setInputs({
+      ...inputs,
+      tipos: inputs.tipos.filter((tipo, i) => i !== index),
+    });
+    console.log(inputs);
   };
+
+  // const validate = (e) => {
+  //   let formArr = document.getElementsByTagName("form");
+  //   console.log([...formArr]);
+  // };
+
+  // const [poks, setPoks] = useState([])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate(e)) alert("OK");
+    // e.preventDefault();
+    try {
+      axios.post("http://localhost:3001/pokemons", inputs).then((req, res) => {
+        alert(req.data);
+        setInputs({
+          nombre: "",
+          vida: 0,
+          fuerza: 0,
+          defensa: 0,
+          velocidad: 0,
+          altura: 0,
+          peso: 0,
+          tipos: [],
+        });
+      });
+      dispatch(setPokemon([inputs]));
+    } catch (error) {
+      alert(error);
+    } finally {
+      // backend
+      dispatch(getPokemons);
+      // filtra BD
+      dispatch(getMyPokemons);
+    }
   };
 
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]);
+  // useEffect(() => {
+  //   setPoks(...myPokemons)
+  //   console.log('me ejecute')
+  // }, [handleSubmit]);
 
   return (
     <div className={styles.createContainer}>
@@ -55,6 +94,7 @@ const CreatePokemon = () => {
             name="nombre"
             value={inputs.nombre}
             onChange={handleInputs}
+            placeholder="Type the pokémon's name here..."
           />
           <label htmlFor="life">Life</label>
           <div className={styles.range}>
@@ -134,31 +174,72 @@ const CreatePokemon = () => {
               <strong>{inputs.peso}</strong>
             </p>
           </div>
+
           <label htmlFor="type">Types</label>
+          <div className={styles.typesContainer}>
+            <select
+              className={styles.selectTypes}
+              name="tipos"
+              id="type"
+              onChange={handleInputs}
+              defaultValue="select"
+              // placeholder="Choose here..."
+            >
+              <option value="select">Choose here...</option>
+              {types.map((type) => (
+                <option key={type.id}>{type.nombre}</option>
+              ))}
+            </select>
 
-          <input
-            type="text"
-            id="type"
-            name="tipos"
-            value={inputs.tipos}
-            onChange={handleInputs}
-          />
+            {/* <button className={styles.btnAddType} onClick={() => {
+              setInputs({
+                ...inputs,
+                tipos: prompt("Type the new type here..."),
+              });
+            }}>NEW TYPE</button> */}
 
-          <input type="submit" className={styles.button} value="CREATE" />
+            <ul className={styles.ulInputs}>
+              {inputs.tipos.map((tipo) => (
+                <li
+                  key={inputs.tipos.indexOf(tipo)}
+                  value={inputs.tipos.indexOf(tipo)}
+                  onClick={handleTags}
+                >
+                  {tipo} x
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.btnContainer}>
+            <input type="submit" className={styles.button} value="CREATE" />
+          </div>
         </form>
       </div>
+
       <div className={styles.myPokemons}>
         <div>
           <h3>My Pokémons</h3>
           <div>
-            <ul>
-              {myPokemons.map((pok) => {
-                return (
-                  <Link to={`/Pokemon/${pok.id}`} key={pok.id}>
-                    <li>{pok.nombre}</li>
-                  </Link>
-                );
-              })}
+            <ul className={styles.ulMyPoks}>
+              {myPokemons.length ? (
+                myPokemons.map((pok) => {
+                  return (
+                    <Link to={`/Pokemon/${pok.id}`} key={Math.random(0, 100)}>
+                      <li key={pok.id}>
+                        <img
+                          className={styles.imageList}
+                          src={pok.imagen}
+                          alt={pok.nombre}
+                        />
+                        {pok.nombre}
+                      </li>
+                    </Link>
+                  );
+                })
+              ) : (
+                <div className={styles.gif}></div>
+              )}
             </ul>
           </div>
         </div>

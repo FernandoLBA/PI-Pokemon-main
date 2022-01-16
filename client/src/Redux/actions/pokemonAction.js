@@ -9,16 +9,16 @@ export const getPokemonById = (pokemon) => {
   };
 };
 
-// export const getPokemonByName = (pokemon) => {
-//   return {
-//     type: GET_POKEMON_BY_NAME,
-//     payload: pokemon,
-//   };
-// };
+export const getPokemonByName = (pokemon) => {
+  return {
+    type: GET_POKEMON_BY_NAME,
+    payload: pokemon,
+  };
+};
 
-// export const setPokemon = (pokemon) => {
-//   return {
-//     type: SET_POKEMON,
-//     payload: pokemon,
-//   };
-// };
+export const setPokemon = (pokemon) => {
+  return {
+    type: SET_POKEMON,
+    payload: pokemon,
+  };
+};

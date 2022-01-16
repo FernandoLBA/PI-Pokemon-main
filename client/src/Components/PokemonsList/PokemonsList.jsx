@@ -1,24 +1,8 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./PokemonsList.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getPokemons } from "../../Redux/actions/pokemonsAction";
 
-const PokemonsList = () => {
-  const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemonsReducer.pokemons);
-
-  const pokemonsFetch = async () => {
-    const response = await axios.get(`http://localhost:3001/pokemons/`);
-
-    dispatch(getPokemons(response.data));
-  };
-
-  useEffect(() => {
-    pokemonsFetch();
-  }, []);
-
+const PokemonsList = ({ pokemons }) => {
   return (
     <div className={styles.listContainer}>
       {pokemons.length ? (
@@ -33,11 +17,11 @@ const PokemonsList = () => {
                 <div className={styles.types}>
                   {typeof pokemon.tipos[0] === "string"
                     ? pokemon.tipos.map((tipo) => {
-                        return <div key={Math.random(2, 3)}>{tipo}</div>;
+                        return <div key={Math.random(0, 10)}>{tipo}</div>;
                       })
                     : pokemon.tipos.map((tipo) => {
                         return (
-                          <div key={Math.random(4, 10)}>{tipo.nombre}</div>
+                          <div key={Math.random(11, 20)}>{tipo.nombre}</div>
                         );
                       })}
                 </div>

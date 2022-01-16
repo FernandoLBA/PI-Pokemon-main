@@ -26,7 +26,6 @@ router.get("/types", async (req, res) => {
       attributes: ["id", "nombre"],
     });
 
-    // res.send("Tipos cargados en la base de datos");
     res.json(types);
   } catch (error) {
     console.log(error);
